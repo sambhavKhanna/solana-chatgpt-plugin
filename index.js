@@ -9,6 +9,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/.well-known/:filename', (req, res) => {
+    const filename = req.params.filename;
+    res.sendFile(__dirname + '/.well-known/' + filename);
+});
+
 app.get('/balance', async (req, res) => {
     const { public_key, rpcConnection } = req.body;
     if (!public_key) { 
