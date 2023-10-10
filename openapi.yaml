@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Solana Blockchain Plugin API
+  description: API documentation for interacting with Solana blockchain.
+paths:
+  /balance:
+    get:
+      summary: Get Solana balance
+      parameters:
+        - name: public_key
+          in: query
+          description: Solana public key
+          required: true
+          schema:
+            type: string
+        - name: rpcConnection
+          in: query
+          description: Solana RPC connection (e.g., 'mainnet-beta', 'devnet', 'testnet')
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Invalid public key or RPC connection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /requestAirdrop:
+    post:
+      summary: Request Solana airdrop
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                public_key:
+                  type: string
+                  description: Solana public key
+                amount:
+                  type: number
+                  description: Amount of SOL to airdrop
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '429':
+          description: Airdrop request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string

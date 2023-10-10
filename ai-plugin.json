@@ -1,0 +1,53 @@
+{
+    "name": "Solana Blockchain Plugin",
+    "version": "1.0.0",
+    "description": "A plugin to interact with Solana blockchain for balance checking and airdrop requests.",
+    "entry": "app.js",
+    "endpoints": {
+      "/balance": {
+        "description": "Get Solana balance for a specific public key on the requested network.",
+        "method": "GET",
+        "parameters": {
+          "public_key": {
+            "description": "Solana public key",
+            "type": "string",
+            "required": true
+          },
+          "rpcConnection": {
+            "description": "Solana RPC connection (e.g., 'mainnet-beta', 'devnet', 'testnet')",
+            "type": "string",
+            "required": true
+          }
+        },
+        "response": {
+          "message": {
+            "type": "string",
+            "description": "Response message indicating the balance"
+          }
+        }
+      },
+      "/requestAirdrop": {
+        "description": "Request Solana airdrop to a specific public key on the devnet.",
+        "method": "POST",
+        "parameters": {
+          "public_key": {
+            "description": "Solana public key",
+            "type": "string",
+            "required": true
+          },
+          "amount": {
+            "description": "Amount of SOL to airdrop",
+            "type": "number",
+            "required": true
+          }
+        },
+        "response": {
+          "message": {
+            "type": "string",
+            "description": "Response message indicating the result of the airdrop request"
+          }
+        }
+      }
+    }
+  }
+  
