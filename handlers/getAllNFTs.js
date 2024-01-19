@@ -1,5 +1,3 @@
-import express from 'express';
-import bodyParser from 'body-parser';
 import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 // import { Metaplex } from "@metaplex-foundation/js";
 
@@ -12,8 +10,6 @@ export const getAllNFTs = async (req, res) => {
     const publicKey = new PublicKey(public_key);
     const tokenAccounts = await connection.getTokenAccountsByOwner(publicKey);
     // const metadata = await metaplex.nfts().findAllByOwner( { owner: metaplex.identity().publicKey } );
-    console.log('Hi');
-    console.log(tokenAccounts);
     res.json( tokenAccounts );
    }
    catch(error) {
