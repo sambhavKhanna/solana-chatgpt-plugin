@@ -1,10 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const { Connection, PublicKey, LAMPORTS_PER_SOL } = require('@solana/web3.js');
+import express from 'express';
+import bodyParser from 'body-parser';
+import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
+
+
 const port = 3000;
-const cors = require('cors');
+import cors from 'cors';
 
 const app = express();
+
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -51,7 +55,33 @@ app.post('/requestAirdrop', async (req, res) => {
     }
 });
 
+app.get('/getAllNFTs', async (req, res) => {
+    try {
+        const { public_key } = req.body;
+        const publicKey = new PublicKey(public_key);
+        const connection = new Connection('https://api.mainnet-beta.solana.com');
 
+        const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, { programId: TOKEN_PROGRAM_ID });
+        
+        const tokenInfo = await connection.getAccountInfo(tokenAccounts.value[0].pubkey);
+
+        const bufferData = tokenInfo.data;
+        const encoding = 'utf8';
+
+        const jsonString = Buffer.from(bufferData).toString(encoding);
+
+        // Parse the JSON string to get the metadata object
+        console.log('jsonString:', jsonString);
+
+        const metadata = JSON.parse(jsonString);
+        
+        res.json( metadata );
+    }
+    catch(error) {
+        console.log(error);
+        res.json( { message: 'The user owns no NFTs' } );
+    }
+});
 
 app.listen(port, () => {
     console.log(`App is listening at ${port}`);
