@@ -1,14 +1,10 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
-import { balance } from './handlers/balance';
-import { requestAirdrop } from './handlers/requestAirdrop';
-import { getAllNFTs } from './handlers/getAllNFTs';
-
+const express = require('express');
+const bodyParser = require('body-parser');
+const { balance } = require('./handlers/balance');
+const { requestAirdrop } = require('./handlers/requestAirdrop');
+const { getAllNFTs } = require('./handlers/getAllNFTs');
+const cors = require('cors')
 const port = 3000;
-import cors from 'cors';
-
 const app = express();
 
 

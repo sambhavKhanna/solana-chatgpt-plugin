@@ -1,7 +1,6 @@
-import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
+const { Connection, PublicKey, LAMPORTS_PER_SOL } = require('@solana/web3.js');
 
-export const balance = async (req, res) => {
+const balance = async (req, res) => {
     const { public_key, rpcConnection } = req.body;
     if (!public_key) { 
         res.status(404).json( { message: 'Public key not provided' } ); 
@@ -22,3 +21,5 @@ export const balance = async (req, res) => {
         }
     }
 }
+
+module.exports = { balance }

@@ -1,10 +1,9 @@
-import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
-// import { Metaplex } from "@metaplex-foundation/js";
+const { Connection, PublicKey, LAMPORTS_PER_SOL } = require('@solana/web3.js');
 
 const connection = new Connection('https://api.mainnet-beta.solana.com');
 // const metaplex = new Metaplex(connection);
 
-export const getAllNFTs = async (req, res) => {
+const getAllNFTs = async (req, res) => {
    try {
     const { public_key } = req.body;
     const publicKey = new PublicKey(public_key);
@@ -17,3 +16,4 @@ export const getAllNFTs = async (req, res) => {
    }
 }
 
+module.exports = { getAllNFTs }

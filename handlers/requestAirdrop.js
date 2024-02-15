@@ -1,7 +1,6 @@
-import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
+const { Connection, PublicKey, LAMPORTS_PER_SOL } = require('@solana/web3.js');
 
-export const requestAirdrop = async (req, res) => {
+const requestAirdrop = async (req, res) => {
     const { public_key, amount } = req.body;
     const connection = new Connection('https://api.devnet.solana.com');
     const publicKey = new PublicKey(public_key);
@@ -15,3 +14,5 @@ export const requestAirdrop = async (req, res) => {
         res.status(429).json( { message: 'Failed' } );
     }
 }
+
+module.exports = { requestAirdrop }
